@@ -19,7 +19,7 @@ function ItemLink(props) {
     );
 }
 
-ListItemLink.propTypes = {
+ItemLink.propTypes = {
     text: PropTypes.string,
     to: PropTypes.string.isRequired,
     children: PropTypes.object,
