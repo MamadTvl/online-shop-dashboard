@@ -82,7 +82,7 @@ function CampaignSection() {
                 <Grid item xs={false} sm={6} md={9}/>
                 <Grid style={{position: 'relative'}} item xs={12} sm={6} md={3}>
                     {
-                        loading &&
+                        !loading &&
                         <Button disabled={saveLoading} onClick={handleSubmit} fullWidth className={classes.save}
                                 variant={"contained"}>ثبت
                             اطلاعات</Button>
