@@ -14,7 +14,6 @@ import {useStyles} from "./Styles/ProductSectionStyle";
 import Skeleton from "@material-ui/lab/Skeleton";
 import moment from 'jalali-moment'
 
-// todo: test api !
 
 function ProductsSection() {
     const classes = useStyles();

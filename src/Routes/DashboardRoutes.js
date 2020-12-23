@@ -20,16 +20,11 @@ import DashboardLayout from "../DashboardForms/DashboardLayout";
 function DashboardRoutes(props) {
     const path = props.section.pathname
     let found = true
-    let orderCode, discountCode
-    const isNumber = (str) => {
-        return /^\d+$/.test(str)
-    }
+    let orderCode
 
     const setSection = () => {
         if (path.includes('DID'))
             orderCode = path.replaceAll('/admin/dashboard/orders/', '')
-        if (path.includes('/admin/dashboard/campaigns/') && !path.includes('/admin/dashboard/campaigns/add'))
-            discountCode = path.replaceAll('/admin/dashboard/campaigns/', '')
 
         switch (path) {
             case '/admin/dashboard':
