@@ -23,7 +23,7 @@ export const productData = (id, path, InfoValues, category, tags, colors,
             "id": id,
         }
     }
-    if (product_type === 1) {
+    if (product_type == 1) {
         return data
     } else if (isExist) {
         return {
