@@ -1,12 +1,17 @@
 import React from "react";
-import { Route, Redirect } from 'react-router-dom';
-import {IsLogin} from '../utills'
+import {Redirect, Route} from 'react-router-dom';
+import {useAuth} from "../utills/Auth";
 
 function PublicAdminRoute(props) {
+    const auth = useAuth()
+    document.getElementById("root").hidden = auth.loading
+    if (auth.loading) {
+        return null
+    }
     return (
         <Route exact path={props.path}>
             {
-                IsLogin() ? <Redirect to="/admin/dashboard"/>
+                auth.isLogin ? <Redirect to="/admin/dashboard"/>
                 : props.children
             }
         </Route>

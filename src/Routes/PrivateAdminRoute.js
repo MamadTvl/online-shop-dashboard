@@ -1,11 +1,16 @@
 import React from "react";
 import {Redirect, Route} from "react-router-dom";
 import DashboardLayout from "../DashboardForms/DashboardLayout";
-import {IsLogin} from '../utills'
+import {useAuth} from "../utills/Auth";
 
 function PrivateAdminRoute(props) {
+    const auth = useAuth()
+    document.getElementById("root").hidden = auth.loading
+    if (auth.loading) {
+        return null
+    }
     return (
-        IsLogin() ?
+        auth.isLogin ?
             <DashboardLayout>
                 <Route path={'/admin/dashboard'}>
                     {props.children}

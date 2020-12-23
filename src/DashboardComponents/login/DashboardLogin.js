@@ -9,11 +9,13 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import useAxios from "axios-hooks";
+import {useHistory} from 'react-router-dom'
 import {useStyle} from "./Style";
 
 
 function DashboardLogin() {
     const classes = useStyle()
+    const history = useHistory()
     const baseUrl = "https://api.didartshop.ir"
     const [value, setValue] = useState({
         password: '',
@@ -45,8 +47,7 @@ function DashboardLogin() {
             .then(res => {
                 if (res.data.status === "success") {
                     localStorage.setItem("Authorization", res.data.data.token)
-                    // eslint-disable-next-line no-restricted-globals
-                    location.reload()
+                    history.go(0)
                 } else {
                     console.log(res)
                 }

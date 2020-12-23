@@ -1,16 +1,16 @@
 import React, {useState} from "react";
-import {makeStyles} from "@material-ui/core/styles";
 import {List, SvgIcon} from "@material-ui/core";
 
 import ListItemLink from "../Routes/Link/ListItemLink";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import {logout} from "../utills";
 import {useStyles} from "./Styles/MenuStyle";
+import {useHistory} from "react-router-dom"
 
 function DashboardMenu() {
     const classes = useStyles();
+    const history = useHistory()
     const [listButtons, setListButtons] = useState([])
     // List Items
     const listItems = ['سفارشات', 'محصولات', 'مدیریت وبسایت', 'کمپین ها',
@@ -39,9 +39,8 @@ function DashboardMenu() {
     }
 
     const handleSignOut = () => {
-        logout()
-        // eslint-disable-next-line no-restricted-globals
-        location.reload()
+        localStorage.removeItem('Authorization');
+        history.go(0)
     }
     const setBgColor = (element) => {
         for (let i = 0; i < listButtons.length; i++) {

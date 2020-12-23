@@ -93,7 +93,7 @@ function DashboardRoutes(props) {
                 {setSection()}
             </Switch>
             {
-                !found ? <Redirect to="/not-found"/> : null
+                !found ? <Redirect to="/"/> : null
             }
 
         </>
