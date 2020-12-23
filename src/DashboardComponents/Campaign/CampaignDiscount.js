@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, IconButton, SvgIcon, TableBody, TableContainer, Typography} from "@material-ui/core";
 import ItemLink from "../../Routes/Link/ItemLink";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
@@ -13,11 +13,15 @@ import {useAxios} from "../../utills/Hooks/useAxios";
 import toFaDigit from "../../utills/ToFaDigit";
 import moment from "jalali-moment";
 import {Skeleton} from "@material-ui/lab"
+import DeleteDialog from "../Public/DeleteDialog";
 
 
 function CampaignDiscount() {
-
     const classes = useStyles();
+    const [deleteDialog, setDeleteDialog] = useState({
+        open: false,
+        id: null,
+    })
     const [{response, loading}, get] = useAxios({
         url: '/admin/discount_mng/get'
     })
@@ -26,14 +30,18 @@ function CampaignDiscount() {
         method: 'DELETE',
     }, {manual: true})
 
-    const handleDelete = async (id) => {
+    const handleDelete = async () => {
         try {
             await deleteDiscount({
                 data: {
-                    "id": id,
+                    "id": deleteDialog.id,
                 }
             })
             get()
+            setDeleteDialog({
+                open: false,
+                id: null,
+            })
         } catch (err) {
         }
     }
@@ -42,6 +50,12 @@ function CampaignDiscount() {
         get()
     }, [get])
 
+    const onCloseDialog = () => {
+        setDeleteDialog({
+            ...deleteDialog,
+            open: false,
+        })
+    }
 
 
     return (
@@ -126,7 +140,12 @@ function CampaignDiscount() {
                                                 </ItemLink>
                                             </StyledTableCell>
                                             <StyledTableCell align="right">
-                                                <IconButton onClick={() => handleDelete(discount.id)}>
+                                                <IconButton onClick={() => {
+                                                    setDeleteDialog({
+                                                        open: true,
+                                                        id: discount.id,
+                                                    })
+                                                }}>
                                                     <SvgIcon xmlns="http://www.w3.org/2000/svg" width="15.9"
                                                              height="17.5"
                                                              viewBox="0 0 15.9 17.5">
@@ -175,6 +194,12 @@ function CampaignDiscount() {
 
                 </TableContainer>
             }
+            <DeleteDialog
+                onClose={onCloseDialog}
+                open={deleteDialog.open}
+                title={'حذف کد تخفیف'}
+                deleteHandler={handleDelete}
+            />
         </Card>
     )
 }

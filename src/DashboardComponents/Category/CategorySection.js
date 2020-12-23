@@ -13,6 +13,7 @@ import {useAxios} from "../../utills/Hooks/useAxios";
 import toFaDigit from "../../utills/ToFaDigit";
 import {Skeleton} from "@material-ui/lab"
 import moment from "jalali-moment";
+import DeleteDialog from "../Public/DeleteDialog";
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -116,6 +117,10 @@ function CategorySection() {
 
     const [openAddDialog, setOpenAddDialog] = useState(false)
     const [openEditDialog, setOpenEditDialog] = useState(false)
+    const [deleteDialog, setDeleteDialog] = useState({
+        open: false,
+        id: null,
+    })
 
     let numPages = 0
     if (response !== undefined)
@@ -160,21 +165,22 @@ function CategorySection() {
         setOpenEditDialog(false)
     }
 
-    const deleteCategoryHandler = (id) => {
-        if (window.confirm('آیا مطمئن به حذف این دسته بندی هستید ؟')) {
-            console.log(id)
-            deleteCategory({
-                data: {
-                    "id": `${id}`
-                }
-            }).then(res => {
-                console.log(res)
-                getCategories()
-            }).catch(err => {
-                console.log(err)
+
+    const deleteCategoryHandler = async() => {
+        await deleteCategory({
+            data: {
+                "id": `${deleteDialog.id}`
+            }
+        }).then(res => {
+            getCategories()
+            setDeleteDialog({
+                open: false,
+                id: null,
             })
-        }
+        }).catch(err => {
+        })
     }
+
     useEffect(() => {
         getCategories()
 
@@ -184,6 +190,10 @@ function CategorySection() {
     const onCloseDialog = () => {
         setOpenAddDialog(false)
         setOpenEditDialog(false)
+        setDeleteDialog({
+            ...deleteDialog,
+            open: false,
+        })
     }
 
     return (
@@ -263,7 +273,10 @@ function CategorySection() {
                                                 <StyledTableCell align="right">
                                                     <IconButton
                                                         onClick={() => {
-                                                            deleteCategoryHandler(row.id)
+                                                            setDeleteDialog({
+                                                                open: true,
+                                                                id: row.id,
+                                                            })
                                                         }}
                                                     >
 
@@ -329,6 +342,12 @@ function CategorySection() {
                 open={openEditDialog}
                 title={'ویرایش دسته بندی'}
                 defaultValue={selectedCategory.name}
+            />
+            <DeleteDialog
+                onClose={onCloseDialog}
+                open={deleteDialog.open}
+                title={'حذف دسته بندی'}
+                deleteHandler={deleteCategoryHandler}
             />
 
             {!loading && <TablePaginationActions numPages={numPages} page={page} onChange={handleChangePages}/>}

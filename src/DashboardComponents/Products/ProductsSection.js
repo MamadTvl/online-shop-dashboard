@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, IconButton, Link, Paper, SvgIcon, TableBody, TableContainer, Typography} from "@material-ui/core";
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Table from "@material-ui/core/Table";
@@ -13,12 +13,16 @@ import toFaDigit from "../../utills/ToFaDigit";
 import {useStyles} from "./Styles/ProductSectionStyle";
 import Skeleton from "@material-ui/lab/Skeleton";
 import moment from 'jalali-moment'
+import DeleteDialog from "../Public/DeleteDialog";
 
 
 function ProductsSection() {
     const classes = useStyles();
     const [page, setPage] = React.useState(0)
-
+    const [deleteDialog, setDeleteDialog] = useState({
+        open: false,
+        id: null,
+    })
     const [{data, loading}, fetch] = useAxios(
         `admin/merchandise_mng/get_all_merchandise?page=${page}`);
 
@@ -50,18 +54,28 @@ function ProductsSection() {
     }
 
 
-    const deleteHandler = (id) => {
+    const deleteHandler = () => {
         executeDelete({
             data: {
-                "id": `${id}`
+                "id": `${deleteDialog.id}`
             }
         })
             .then(() => {
                 fetch()
+                setDeleteDialog({
+                    open: false,
+                    id: null,
+                })
             })
             .catch(err => {
                 console.log(err)
             })
+    }
+    const onCloseDialog = () => {
+        setDeleteDialog({
+            ...deleteDialog,
+            open: false,
+        })
     }
 
     return (
@@ -231,7 +245,12 @@ function ProductsSection() {
                                                         </ItemLink>
                                                     </StyledTableCell>
                                                     <StyledTableCell align="right">
-                                                        <IconButton onClick={() => deleteHandler(row.id)}>
+                                                        <IconButton onClick={() => {
+                                                            setDeleteDialog({
+                                                                open: true,
+                                                                id: row.id,
+                                                            })
+                                                        }}>
 
                                                             <SvgIcon xmlns="http://www.w3.org/2000/svg" width="15.9"
                                                                      height="17.5"
@@ -292,6 +311,13 @@ function ProductsSection() {
                     ? <TablePaginationActions numPages={numPages} page={page} onChange={handleChangePages}/>
                     : null
             }
+            <DeleteDialog
+                onClose={onCloseDialog}
+                open={deleteDialog.open}
+                title={'حذف محصول'}
+                deleteHandler={deleteHandler}
+            />
+
         </div>
     )
 
