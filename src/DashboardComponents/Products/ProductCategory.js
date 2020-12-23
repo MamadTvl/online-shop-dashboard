@@ -1,11 +1,11 @@
-import React, {useState} from "react";
+import React from "react";
 import Card from "@material-ui/core/Card";
 import {CardContent, CardHeader, MenuItem, Typography} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import {makeStyles} from "@material-ui/core/styles";
-import GetCategory from "./GetCategory";
 import PropTypes from "prop-types";
 import EditProduct from "./GetProductData";
+import useCategoriesData from "../../utills/Hooks/useCategoriesData";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,22 +32,16 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const promise = GetCategory()
 
 function ProductCategory(props) {
     const {selectedCategory, setSelectedCategory} = props
     const classes = useStyles()
-    const [categories, setCategories] = useState([])
-    promise.then(res => {
-        setCategories(res[0])
-    })
+    const [loading, categories] = useCategoriesData(true)
 
-    const handleChange = (event) => {
+    const findCategory = (name) => {
         for (let i = 0; i < categories.length; i++) {
-            for (let j = 0; j < categories[i].length; j++) {
-                if(categories[i][j].name === event.target.value){
-                   setSelectedCategory(categories[i][j])
-                }
+            if (categories[i].name === name){
+                return categories[i]
             }
         }
     };
@@ -60,11 +54,14 @@ function ProductCategory(props) {
             <CardContent>
                 <div className={classes.textField}>
                     <TextField
+                        disabled={loading}
                         style={{flexGrow: 1}}
                         id="category"
                         select
                         value={selectedCategory ? selectedCategory.name : ''}
-                        onChange={handleChange}
+                        onChange={(event) => {
+                            setSelectedCategory(findCategory(event.target.value))
+                        }}
                         InputProps={{
                             classes: {
                                 input: classes.textFieldFont
@@ -74,12 +71,10 @@ function ProductCategory(props) {
 
                     >
                         {
-                            categories.map((response) => (
-                                response.map((category) => (
-                                    <MenuItem className={classes.menu} key={category.id} value={category.name}>
-                                        {category.name}
-                                    </MenuItem>
-                                ))
+                            categories.map((category) => (
+                                <MenuItem className={classes.menu} key={category.id} value={category.name}>
+                                    {category.name}
+                                </MenuItem>
                             ))
 
                         }
@@ -90,6 +85,7 @@ function ProductCategory(props) {
     )
 
 }
+
 EditProduct.propTypes = {
     selectedCategory: PropTypes.object.isRequired,
     setSelectedCategory: PropTypes.func.isRequired,

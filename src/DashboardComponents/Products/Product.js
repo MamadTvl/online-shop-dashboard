@@ -112,7 +112,7 @@ function Product(props) {
     const [productType, setProductType] = useState(initialData.productType);
     /** end of productStock states **/
     let stock_list = useRef([])
-    useEffect(() => { // todo: add loading
+    useEffect(() => {
         async function getValues() {
             setEditLoading(true)
             let newData = await GetProductData()
