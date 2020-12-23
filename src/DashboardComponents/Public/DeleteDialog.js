@@ -59,7 +59,7 @@ const useStyle = makeStyles((theme) => ({
         },
     }
 
-}))
+}), {index: 1})
 
 
 export default function DeleteDialog(props) {

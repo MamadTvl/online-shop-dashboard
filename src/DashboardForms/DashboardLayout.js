@@ -51,10 +51,10 @@ function DashboardLayout(props) {
                     <MenuIcon/>
                 </IconButton>
                 {
-                    useLocation().pathname === '/admin/dashboard' ?
+                    useLocation().pathname === '/admin/dashboard' &&
                         <Typography className={classes.textStyle}>به پنل مدیریت فروشگاه خوش آمدید !
                         </Typography>
-                        : null
+
                 }
 
             </AppBar>

@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Shabnam',
         fontSize: 14,
     },
-}));
+}), {index: 1});
 
 function ProductTag(props) {
     const classes = useStyles()

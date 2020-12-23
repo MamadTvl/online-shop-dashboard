@@ -45,4 +45,4 @@ export const useStyles = makeStyles((theme) => ({
         fontFamily: 'Shabnam',
         fontSize: 14,
     },
-}));
+}), {index: 1});

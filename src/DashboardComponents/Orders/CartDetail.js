@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
         marginBottom : theme.spacing(3),
 
     }
-}));
+}), {index: 1});
 
 const cardDetail = {
     description : 'لطفا تمامی کقش‌ها در سایز ۴۴ باشند.',

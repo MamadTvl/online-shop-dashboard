@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 16,
         color: '#545454',
     }
-}));
+}), {index: 1});
 
 const campaigns = [
     {

@@ -31,4 +31,4 @@ export const useStyles = makeStyles((theme) => ({
             borderColor : 'white',
         },
     },
-}));
+}), {index: 1});

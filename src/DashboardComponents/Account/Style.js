@@ -40,4 +40,4 @@ export const useStyle = makeStyles((theme) => ({
         right: 'auto',
         width: '82.5%',
     },
-}))
+}), {index: 1})

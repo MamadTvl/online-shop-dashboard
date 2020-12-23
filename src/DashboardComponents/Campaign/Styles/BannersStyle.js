@@ -62,4 +62,4 @@ export const useStyles = makeStyles((theme) => ({
         display: "flex",
         justifyContent: "space-between",
     }
-}));
+}), {index: 1});

@@ -110,7 +110,7 @@ const useStyles = makeStyles((theme) => ({
         width: 12,
         height: 12,
     }
-}));
+}), {index: 1});
 
 
 function CommentCard(props) {

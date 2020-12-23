@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1, 3, 3),
         float: "left"
     }
-}));
+}), {index: 1});
 
 
 function OrderSection() {

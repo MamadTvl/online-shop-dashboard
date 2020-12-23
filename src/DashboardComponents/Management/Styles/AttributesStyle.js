@@ -50,4 +50,4 @@ export const useStyle = makeStyles((theme) => ({
         color: '#434343',
     },
 
-}))
+}), {index: 1})

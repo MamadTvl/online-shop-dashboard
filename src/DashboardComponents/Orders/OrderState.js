@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
         marginBottom : 34,
         float : "left"
     }
-}));
+}), {index: 1});
 
 const states = [
     {

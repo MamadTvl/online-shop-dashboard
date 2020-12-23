@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
         textAlign: 'center',
     }
-}));
+}), {index: 1});
 
 function createData(product, user, date, status, description) {
     return {product, user, date, status, description};

@@ -23,4 +23,4 @@ export const useStyle = makeStyles((theme) => ({
         fontSize: 14,
     },
 
-}))
+}), {index: 1})

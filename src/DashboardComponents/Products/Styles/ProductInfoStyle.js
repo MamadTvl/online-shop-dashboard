@@ -51,4 +51,4 @@ export const useStyle = makeStyles((theme) => ({
         fontWeight: "bold"
     }
 
-}))
+}), {index: 1})

@@ -47,4 +47,4 @@ export const useStyles = makeStyles((theme) => ({
     skeleton: {
         // position: "absolute",
     }
-}));
+}), {index: 1});

@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 20,
         fontWeight: "bold",
     },
-}))
+}), {index: 1})
 
 const cost = {
     total : '۲۱۲٫۰۰۰ تومان',

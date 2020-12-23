@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
             margin: theme.spacing(2, 1, 2)
         }
     },
-}));
+}), {index: 1});
 
 
 function OrdersDetail(props) {

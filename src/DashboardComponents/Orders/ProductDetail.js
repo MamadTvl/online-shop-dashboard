@@ -48,7 +48,7 @@ const useStyle = makeStyles((theme) => ({
         fontWeight: "bold"
     }
 
-}))
+}), {index: 1})
 
 function createData(title, image, color, size, count, hasOffer, offer, price) {
     return {title, image, color, size, count, hasOffer, offer, price};
