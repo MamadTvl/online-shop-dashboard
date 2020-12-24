@@ -14,7 +14,6 @@ export default function DateFormat(props) {
                 inputRef(ref ? ref.inputElement : null)
             }}
             mask={[/[0-9]/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
-            placeholderChar={'\u2000'}
             showMask
         />
     )
