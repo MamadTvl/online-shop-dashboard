@@ -9,6 +9,7 @@ import moment from "jalali-moment";
 import {useAxios} from "../../utills/Hooks/useAxios";
 import {useHistory, useLocation} from "react-router-dom"
 import PropTypes from "prop-types";
+import toFaDigit from "../../utills/ToFaDigit";
 
 function Discount(props) {
     const classes = useStyle()
@@ -146,6 +147,7 @@ function Discount(props) {
                                                     id={item.id}
                                                     fullWidth
                                                     value={values.date}
+                                                    helperText={moment().format('jDD/jMM/jYYYY')}
                                                     onChange={handleChange('date')}
                                                     margin={'normal'}
                                                     InputProps={{
@@ -153,6 +155,13 @@ function Discount(props) {
                                                             input: classes.textField
                                                         },
                                                         inputComponent: DateFormat
+                                                    }}
+                                                    FormHelperTextProps={{
+                                                        style: {
+                                                            fontFamily: 'Shabnam',
+                                                            fontSize: 12,
+                                                            textAlign: 'left'
+                                                        }
                                                     }}
                                                     variant="outlined"
                                                 />
