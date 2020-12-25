@@ -23,7 +23,7 @@ function DashboardLogin() {
     })
     const [{loading}, fetch] = useAxios(
         {
-            url: `${baseUrl}/user/sign_in`,
+            url: `${baseUrl}/admin/others/sign_in`,
             method: 'POST'
         },
         {manual: true}

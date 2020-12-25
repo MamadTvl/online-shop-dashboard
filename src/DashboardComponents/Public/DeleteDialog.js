@@ -92,7 +92,7 @@ export default function DeleteDialog(props) {
                         variant={"contained"}
                         size={"large"}
                     >
-                        ثبت
+                        حذف
                     </Button>
                 </div>
             </div>
