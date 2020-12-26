@@ -89,7 +89,7 @@ function FianceSection() {
                 <div className={classes.header}>
                     <Typography className={classes.title}>امور مالی</Typography>
                     <Link
-                        href={`${!exportLoading && excelLink.data.file_dir}`}
+                        href={`${!exportLoading && excelLink !== undefined && excelLink.data.file_dir}`}
                         target="_blank"
                         rel="noopener noreferrer"
                     >
