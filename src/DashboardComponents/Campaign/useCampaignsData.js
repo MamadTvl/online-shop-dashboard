@@ -29,9 +29,9 @@ function useCampaignsData(fetch) {
                         campaigns[i].percent_of_discount = 0
                     }
                 }
-                const amazingOffer = amazingOfferResponse.data.data.merchandise_list
-
-                setResult([campaigns, amazingOffer])
+                const amazingOffer = amazingOfferResponse.data.data
+                console.log([campaigns, amazingOffer.merchandise_list, amazingOffer.cover])
+                setResult([campaigns, amazingOffer.merchandise_list, amazingOffer.cover])
 
                 setLoading(false)
             } catch (error) {

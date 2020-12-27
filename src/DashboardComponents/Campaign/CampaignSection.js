@@ -22,11 +22,13 @@ function CampaignSection() {
     /** start of states **/
     const [campaigns, setCampaigns] = useState([])
     const [amazingOffer, setAmazingOffer] = useState()
+    const [amazingOfferCover, setAmazingOfferCover] = useState('')
     /** end of states **/
 
     useEffect(() => {
         setCampaigns(result[0])
         setAmazingOffer(result[1])
+        setAmazingOfferCover(result[2])
         setFetch(false)
     }, [result])
 
@@ -67,6 +69,8 @@ function CampaignSection() {
                     {loading
                         ? <Skeleton width={'100%'} height={500} variant={"rect"}/>
                         : <CampaignAmazing
+                            cover={amazingOfferCover}
+                            setCover={setAmazingOfferCover}
                             amazingOffer={amazingOffer}
                             setAmazingOffer={setAmazingOffer}
                         />
