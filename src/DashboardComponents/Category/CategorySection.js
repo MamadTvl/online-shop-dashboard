@@ -10,7 +10,7 @@ import TablePaginationActions from "../Table/Components/TablePaginationActions";
 import {StyledTableCell} from "../Table/Styles/StyledTableCell";
 import {StyledTableRow} from "../Table/Styles/StyledTableRow";
 import {useAxios} from "../../utills/Hooks/useAxios";
-import toFaDigit from "../../utills/ToFaDigit";
+import {toFaDigit} from "../../utills/ToFaDigit";
 import {Skeleton} from "@material-ui/lab"
 import moment from "jalali-moment";
 import DeleteDialog from "../Public/DeleteDialog";

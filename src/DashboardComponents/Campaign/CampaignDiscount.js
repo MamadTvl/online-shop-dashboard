@@ -10,7 +10,7 @@ import {StyledTableRow} from "../Table/Styles/StyledTableRow";
 import Card from "@material-ui/core/Card";
 import {useStyles} from "./Styles/DiscountTableStyle";
 import {useAxios} from "../../utills/Hooks/useAxios";
-import toFaDigit from "../../utills/ToFaDigit";
+import {toFaDigit} from "../../utills/ToFaDigit";
 import moment from "jalali-moment";
 import {Skeleton} from "@material-ui/lab"
 import DeleteDialog from "../Public/DeleteDialog";

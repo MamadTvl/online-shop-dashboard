@@ -9,7 +9,7 @@ import {StyledTableCell} from "../Table/Styles/StyledTableCell";
 import {StyledTableRow} from "../Table/Styles/StyledTableRow";
 import TablePaginationActions from "../Table/Components/TablePaginationActions";
 import {useAxios} from '../../utills/Hooks/useAxios'
-import toFaDigit from "../../utills/ToFaDigit";
+import {toFaDigit} from "../../utills/ToFaDigit";
 import {useStyles} from "./Styles/ProductSectionStyle";
 import Skeleton from "@material-ui/lab/Skeleton";
 import moment from 'jalali-moment'

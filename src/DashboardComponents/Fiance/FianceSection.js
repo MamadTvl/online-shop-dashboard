@@ -6,13 +6,7 @@ import {DecimalInput} from "react-hichestan-numberinput";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import {useStyle} from "./Style";
 import {useAxios} from "../../utills/Hooks/useAxios";
-
-const incomes = {
-    today: '۰',
-    month: '۰',
-    week: '۰',
-    year: '۰',
-}
+import {separateDigit} from "../../utills/ToFaDigit";
 
 function FianceSection() {
     const classes = useStyle()
@@ -21,6 +15,9 @@ function FianceSection() {
     const handleChange = (props) => (event) => {
         setValues({...values, [props]: event.target.value})
     }
+    const [{data: indexData, loading: indexLoading}, ] = useAxios({
+        url: '/admin/financial_mng',
+    })
     const [{response: freeDeliveryResponse}, getFreeDelivery] = useAxios({
         url: '/admin/financial_mng/transmission_lb/get',
     })
@@ -37,20 +34,22 @@ function FianceSection() {
         method: "PATCH"
     }, {manual: true})
 
-    const [{data: excelLink, loading: exportLoading}, exportExcel] = useAxios({
+    const [{data: excelLink, loading: exportLoading}, ] = useAxios({
         url: '/admin/financial_mng/export_exel',
     })
 
     useEffect(() => {
-        document.getElementById('gift-prefix').children[0]
-            .style.fontFamily = 'Shabnam'
-        document.getElementById('gift-prefix').children[0]
-            .style.fontSize = '14px'
-        document.getElementById('free-prefix').children[0]
-            .style.fontFamily = 'Shabnam'
-        document.getElementById('free-prefix').children[0]
-            .style.fontSize = '14px'
-    }, [])
+        if(!indexLoading){
+            document.getElementById('gift-prefix').children[0]
+                .style.fontFamily = 'Shabnam'
+            document.getElementById('gift-prefix').children[0]
+                .style.fontSize = '14px'
+            document.getElementById('free-prefix').children[0]
+                .style.fontFamily = 'Shabnam'
+            document.getElementById('free-prefix').children[0]
+                .style.fontSize = '14px'
+        }
+    }, [indexLoading])
 
 
     useEffect(() => {
@@ -82,6 +81,9 @@ function FianceSection() {
         } catch (err) {
         }
         setLoading(false)
+    }
+    if (indexLoading){
+        return null
     }
     return (
         <Grid container spacing={3}>
@@ -142,26 +144,26 @@ function FianceSection() {
             <Grid item xs={12} md={6}>
                 <Paper elevation={3} className={classes.incomes}>
                     <Typography className={classes.label}>درآمد روزانه</Typography>
-                    <Typography className={classes.toman}>{incomes.today} تومان</Typography>
+                    <Typography className={classes.toman}>{separateDigit(indexData.data.daily_revenue)} تومان</Typography>
                 </Paper>
             </Grid>
 
             <Grid item xs={12} md={6}>
                 <Paper elevation={3} className={classes.incomes}>
                     <Typography className={classes.label}>درآمد ماهانه</Typography>
-                    <Typography className={classes.toman}>{incomes.month} تومان</Typography>
+                    <Typography className={classes.toman}>{separateDigit(indexData.data.monthly_revenue)} تومان</Typography>
                 </Paper>
             </Grid>
             <Grid item xs={12} md={6}>
                 <Paper elevation={3} className={classes.incomes}>
                     <Typography className={classes.label}>درآمد هفتگی</Typography>
-                    <Typography className={classes.toman}>{incomes.week} تومان</Typography>
+                    <Typography className={classes.toman}>{separateDigit(indexData.data.weekly_revenue)} تومان</Typography>
                 </Paper>
             </Grid>
             <Grid item xs={12} md={6}>
                 <Paper elevation={3} className={classes.incomes}>
                     <Typography className={classes.label}>درآمد سالانه</Typography>
-                    <Typography className={classes.toman}>{incomes.year} تومان</Typography>
+                    <Typography className={classes.toman}>{separateDigit(indexData.data.yearly_revenue)} تومان</Typography>
                 </Paper>
             </Grid>
             <Grid item xs={12} md={6}>
