@@ -29,23 +29,23 @@ function CampaignSection() {
         setAmazingOffer(result[1])
         setFetch(false)
     }, [result])
-    const update = () => {
-        setFetch(true)
-    }
 
     const handleSubmit = async () => {
         setSaveLoading(true)
-        for (const campaign in campaigns) {
+        for (let i = 0; i < campaigns.length; i++) {
             try {
-                updateData({
+                await updateData({
                     data: {
-                        "id": parseInt(campaign.id),
-                        "percent_of_discount": parseInt(campaign.percent_of_discount) / 100,
+                        "id": parseInt(campaigns[i].id),
+                        "percent_of_discount": campaigns[i].percent_of_discount / 100,
                     }
                 })
+
             } catch (err) {
+                console.log(err.response)
             }
         }
+        setFetch(true)
         setSaveLoading(false)
 
     }
