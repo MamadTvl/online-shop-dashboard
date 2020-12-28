@@ -2,121 +2,14 @@ import React, {useState} from "react";
 import PropTypes from "prop-types";
 import Card from "@material-ui/core/Card";
 import {Button, CardContent, CardHeader, Divider, IconButton, SvgIcon, Typography} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
 import profile from '../../img/profile.png'
-
-const useStyles = makeStyles((theme) => ({
-    header: {
-        display: 'flex',
-        justifyContent: 'space-between'
-    },
-    content: {
-        display: "flex",
-        flexDirection: 'row',
-    },
-    detail: {
-        display: "flex",
-    },
-    title: {
-        fontFamily: 'Shabnam',
-        color: '#888888',
-        fontSize: 12,
-        margin: 'auto'
-    },
-    username: {
-        fontFamily: 'Shabnam',
-        color: '#444444',
-        fontSize: 18,
-        fontWeight: 500,
-        // margin: theme.spacing(3, 3),
-        float: "right"
-    },
-    statusText: {
-        fontFamily: 'Shabnam',
-        color: 'white',
-        fontSize: 12,
-        margin: '5px 5px 5px'
-    },
-    profile: {
-        width: 96,
-        height: 96
-    },
-    comment: {
-        fontFamily: 'Shabnam',
-        color: '#888888',
-        fontSize: 16,
-        // margin: theme.spacing(3, 3),
-        float: "right"
-    },
-    actions: {
-        alignItems: 'center',
-        display: "flex",
-        flexDirection: 'row-reverse',
-        flexFlow: '70%',
-        [theme.breakpoints.down("xs")]: {
-            flexDirection: 'column-reverse',
-            justifyContent: 'space-around'
-        }
-    },
-    decline: {
-        float: "left",
-        backgroundColor: 'white',
-        minWidth: 90,
-        color: '#F16522',
-        borderColor: '#F16522',
-        borderWidth: '2px',
-        fontSize: '12px',
-        fontFamily: 'Shabnam',
-        '&:hover': {
-            color: 'white',
-            backgroundColor: '#bf410c',
-            borderColor: 'white',
-        },
-    },
-    accept: {
-        minWidth: 90,
-        margin: theme.spacing(0, 1),
-        float: "left",
-        backgroundColor: 'white',
-        color: '#22B132',
-        borderColor: '#22B132',
-        borderWidth: '2px',
-        fontSize: '12px',
-        fontFamily: 'Shabnam',
-        '&:hover': {
-            color: 'white',
-            backgroundColor: '#04690f',
-            borderColor: 'white',
-        },
-        svgIcon: {
-            '&:hover': {
-                fill: 'white',
-            },
-        }
-
-    },
-    statusRec: {
-        minWidth: 80,
-        maxHeight: 28,
-        borderRadius: 4,
-        display: "flex",
-        justifyContent: 'center',
-        marginRight: theme.spacing(1)
-    },
-    statusIcon: {
-        marginBottom: 5,
-        marginTop: 5,
-        marginLeft: 5,
-        width: 12,
-        height: 12,
-    }
-}), {index: 1});
+import {useCommentCardStyles} from "./Styles/useCommentCardStyle";
 
 
 function CommentCard(props) {
     const {comment, status, changeComment} = props
     const [commentStatus, setCommentStatus] = useState(status)
-    const classes = useStyles()
+    const classes = useCommentCardStyles()
 
     const createStatus = (status) => {
         const statusColor = status === 'تایید شده' ? '#22B132' : '#F16522'
@@ -270,36 +163,36 @@ function CommentCard(props) {
     return (
         <div>
             {
-                commentStatus !== ''?
-                <Card>
-                    <div className={classes.header}>
-                        <CardHeader
-                            title={
-                                <div className={classes.detail}>
-                                    <Typography
-                                        className={classes.title}>
-                                        {`محصول: ${comment.product} - تاریخ ارسال: ${comment.date}`}
-                                    </Typography>
-                                    {commentStatus !== 'جدید' ? createStatus(commentStatus) : null}
-                                </div>
+                commentStatus !== '' ?
+                    <Card>
+                        <div className={classes.header}>
+                            <CardHeader
+                                title={
+                                    <div className={classes.detail}>
+                                        <Typography
+                                            className={classes.title}>
+                                            {`محصول: ${comment.product} - تاریخ ارسال: ${comment.date}`}
+                                        </Typography>
+                                        {commentStatus !== 'جدید' ? createStatus(commentStatus) : null}
+                                    </div>
+                                }
+                            />
+                            {
+                                commentStatus !== 'جدید'
+                                    ? createDeleteAction
+                                    : commentStatus !== ''
+                                    ? crateSelectStatusAction : null
                             }
-                        />
-                        {
-                            commentStatus !== 'جدید'
-                                ? createDeleteAction
-                                : commentStatus !== ''
-                                ? crateSelectStatusAction : null
-                        }
-                    </div>
-                    <Divider/>
-                    <CardContent className={classes.content}>
-                        <img className={classes.profile} src={profile} alt={'profile'}/>
-                        <div style={{marginRight: 20}}>
-                            <Typography className={classes.username}>{comment.user}</Typography>
-                            <Typography className={classes.comment}>{comment.description}</Typography>
                         </div>
-                    </CardContent>
-                </Card>
+                        <Divider/>
+                        <CardContent className={classes.content}>
+                            <img className={classes.profile} src={profile} alt={'profile'}/>
+                            <div style={{marginRight: 20}}>
+                                <Typography className={classes.username}>{comment.user}</Typography>
+                                <Typography className={classes.comment}>{comment.description}</Typography>
+                            </div>
+                        </CardContent>
+                    </Card>
                     : null
             }
         </div>
