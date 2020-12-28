@@ -16,9 +16,9 @@ function createDate(title, subTitle, id) {
 }
 
 const banners = [
-    createDate('بنر اول', 'سایز 520*470', 'campaign-1'),
-    createDate('بنر دوم', 'سایز 520*666', 'campaign-2'),
-    createDate('بنر سوم', 'سایز 520*1160', 'campaign-3'),
+    createDate('بنر اول', 'سایز ۵۱۶ * ۵۲۰', 'campaign-1'),
+    createDate('بنر دوم', 'سایز ۷۰۰ * ۵۲۰', 'campaign-2'),
+    createDate('بنر سوم', 'سایز ۱۲۴۰ * ۵۲۰', 'campaign-3'),
 ]
 
 function CampaignBanners(props) {
