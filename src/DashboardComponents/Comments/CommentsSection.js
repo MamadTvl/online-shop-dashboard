@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import {Backdrop, CircularProgress, Typography} from "@material-ui/core";
@@ -41,9 +41,21 @@ const useStyles = makeStyles((theme) => ({
 
 function CommentsSection() {
     const classes = useStyles();
-    const [loadingNewComments, resultNewComments] = useAllCommentsData(true, 0, true)
-    const [loadingAllComments, resultAllComments] = useAllCommentsData(true, 0, false)
+    const [fetch, setFetch] = useState(true)
+    const [loadingNewComments, resultNewComments] = useAllCommentsData(fetch, 0, true)
+    const [loadingAllComments, resultAllComments] = useAllCommentsData(fetch, 0, false)
+    
+    
+    useEffect(() => {
+        if ((!loadingNewComments && resultNewComments.pages !== -1) 
+            || (!loadingAllComments && resultAllComments.pages !== -1)){
+            setFetch(false)
+        }
+    }, [loadingAllComments, loadingNewComments, resultAllComments, resultNewComments])
 
+    const refresh = () => {
+        setFetch(true)
+    }
     return (
         <>
             <Backdrop className={classes.backdrop} open={loadingNewComments || loadingAllComments}>
@@ -70,6 +82,7 @@ function CommentsSection() {
                                     <Grid item xs={12}>
                                         <CommentCard
                                             comment={comment}
+                                            refresh={refresh}
                                         />
                                     </Grid>
                                 ))
@@ -95,6 +108,7 @@ function CommentsSection() {
                                     <Grid item xs={12}>
                                         <CommentCard
                                             comment={comment}
+                                            refresh={refresh}
                                         />
                                     </Grid>
                                 ))

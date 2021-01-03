@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Backdrop, CircularProgress, Grid, Typography} from "@material-ui/core";
 import CommentCard from "./CommentCard";
 import {makeStyles} from "@material-ui/core/styles";
@@ -25,11 +25,23 @@ function CommentsList({location}) {
     const sortStatus = queryParams.get('new') === 'true'
     const title = sortStatus ? 'نظرات جدید' : 'همه نظرات'
     const [page, setPage] = useState(0)
-    const [loading, result] = useAllCommentsData(true, page, sortStatus)
+    const [fetch, setFetch] = useState(true)
+    const [loading, result] = useAllCommentsData(fetch, page, sortStatus)
 
 
     const handleChangePages = (pageNumber) => {
         setPage(pageNumber)
+        refresh()
+    }
+
+    useEffect(() => {
+        if (!loading && result.pages !== -1){
+            setFetch(false)
+        }
+    }, [loading, result])
+
+    const refresh = () => {
+        setFetch(true)
     }
 
 
@@ -45,7 +57,7 @@ function CommentsList({location}) {
                 {
                     result.comments.map((comment) => (
                         <Grid key={Math.round(comment.create_date)} item xs={12}>
-                            <CommentCard comment={comment}/>
+                            <CommentCard comment={comment} refresh={refresh}/>
                         </Grid>
                     ))
                 }

@@ -62,11 +62,6 @@ export const useCommentCardStyles = makeStyles((theme) => ({
         borderWidth: '2px',
         fontSize: '12px',
         fontFamily: 'Shabnam',
-        '&:hover': {
-            color: 'white',
-            backgroundColor: '#bf410c',
-            borderColor: 'white',
-        },
     },
     accept: {
         minWidth: 90,
@@ -78,16 +73,6 @@ export const useCommentCardStyles = makeStyles((theme) => ({
         borderWidth: '2px',
         fontSize: '12px',
         fontFamily: 'Shabnam',
-        '&:hover': {
-            color: 'white',
-            backgroundColor: '#04690f',
-            borderColor: 'white',
-        },
-        svgIcon: {
-            '&:hover': {
-                fill: 'white',
-            },
-        }
 
     },
     statusRec: {

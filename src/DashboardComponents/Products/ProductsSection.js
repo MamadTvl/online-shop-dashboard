@@ -103,7 +103,7 @@ function ProductsSection() {
                                     </Button>
                                 </ItemLink>
                                 <Link
-                                    href={`${!exportLoading && excelLink.data.file_dir}`}
+                                    href={`${(!exportLoading && excelLink !== undefined) && excelLink.data.file_dir}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >

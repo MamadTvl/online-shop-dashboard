@@ -13,7 +13,7 @@ import {useHistory} from "react-router-dom";
 
 function CommentCard(props) {
     const history = useHistory()
-    const {comment} = props
+    const {comment, refresh} = props
     const classes = useCommentCardStyles()
     const [fetchDeleteComment, setFetchDeleteComment] = useState(false)
     const [fetchChangeStatus, setFetchChangeStatus] = useState(false)
@@ -69,7 +69,7 @@ function CommentCard(props) {
     useEffect(() => {
         if (!loadingDeleteComment) {
             if (deleteCommentResult)
-                comment.status = ''
+                refresh()
             setFetchDeleteComment(false)
         }
     }, [loadingDeleteComment, deleteCommentResult, history])
@@ -226,6 +226,7 @@ function CommentCard(props) {
 
 CommentCard.propTypes = {
     comment: PropTypes.object.isRequired,
+    refresh: PropTypes.func,
 };
 
 export default CommentCard

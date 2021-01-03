@@ -5,7 +5,7 @@ import {useHistory} from "react-router-dom"
 function useAllCommentsData(fetch, page, showNew) {
     const history = useHistory()
     const [result, setResult] = useState({
-        pages: 1,
+        pages: -1,
         comments: []
     })
     const [loading, setLoading] = useState(true)
@@ -19,12 +19,15 @@ function useAllCommentsData(fetch, page, showNew) {
                 setLoading(true)
                 const response = await getAllComments()
                 setResult({
-                    pages: response.data.data.pages,
+                    pages: response.data.data.pages + 1,
                     comments: response.data.data.comments
                 })
 
             } catch (err) {
-                history.push('/')
+                setResult({
+                    pages: -1,
+                    comments: []
+                })
             }
             setLoading(false)
         }
@@ -32,7 +35,7 @@ function useAllCommentsData(fetch, page, showNew) {
         if (fetch)
             getResult().then()
 
-    }, [fetch, page])
+    }, [fetch, getAllComments, page])
 
     return [loading, result]
 }
