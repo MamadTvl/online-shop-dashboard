@@ -63,10 +63,7 @@ function DashboardRoutes(props) {
                 return <CommentsSection/>
             }
             case '/admin/dashboard/comments/show': {
-                return <CommentsList comments={props.section}/>
-            }
-            case '/admin/dashboard/comments/show?=new': {
-                return <CommentsList comments={props.section}/>
+                return <CommentsList/>
             }
 
             case '/admin/dashboard/fiance': {

@@ -4,10 +4,10 @@ import {useHistory} from "react-router-dom";
 
 function useChangeCommentStatus(fetch, id, status) {
     const history = useHistory()
-    const [result, setResult] = useState()
+    const [result, setResult] = useState(null)
     const [loading, setLoading] = useState(false)
     const [, changeStatus] = useAxios({
-        url: '/admin/comment_mng/delete_comment',
+        url: '/admin/comment_mng/update_comment_status',
         method: 'PATCH',
     }, {manual: true})
 
@@ -23,7 +23,7 @@ function useChangeCommentStatus(fetch, id, status) {
                 })
                 setResult(response.data.data)
             } catch (err) {
-                history.go(0)
+                setResult(null)
             }
             setLoading(false)
         }

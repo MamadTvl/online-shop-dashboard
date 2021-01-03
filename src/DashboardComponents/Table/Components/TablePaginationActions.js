@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(4, 3, 10, 0),
         float: 'left',
     },
-}));
+}), {index: 1});
 
 
 function TablePaginationActions(props) {
@@ -38,7 +38,7 @@ function TablePaginationActions(props) {
 
     const buttonGroup = () => {
         let buttons = []
-        for (let i = 0; i < numPages && numPages < 7; i++) {
+        for (let i = 0; i < numPages; i++) {
             buttons[i] = i + 1
         }
         return buttons

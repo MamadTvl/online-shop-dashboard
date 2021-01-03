@@ -18,7 +18,7 @@ function useDeleteComment(fetch, id) {
                         "id": id,
                     }
                 })
-                setResult(response.data.data.status === 'success')
+                setResult(response.data.status === 'success')
             } catch (err) {
                 setResult(false)
             }

@@ -1,10 +1,11 @@
 import React, {useState} from "react";
-import {Grid, Typography} from "@material-ui/core";
+import {Backdrop, CircularProgress, Grid, Typography} from "@material-ui/core";
 import CommentCard from "./CommentCard";
 import {makeStyles} from "@material-ui/core/styles";
 import TablePaginationActions from "../Table/Components/TablePaginationActions";
+import useAllCommentsData from "./Actions/useAllCommentsData";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     title: {
         fontFamily: 'Shabnam',
         color: '#434343',
@@ -12,57 +13,48 @@ const useStyles = makeStyles(() => ({
         fontWeight: "bold",
         float: "right"
     },
-}));
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color:'#F16522'
+    }
+}), {index: 1});
 
-function CommentsList(props) {
+function CommentsList({location}) {
     const classes = useStyles();
-    const sortStatus = props.comments.search === '?sort=new'
+    const queryParams = new URLSearchParams(location.search)
+    const sortStatus = queryParams.get('new') === 'true'
     const title = sortStatus ? 'نظرات جدید' : 'همه نظرات'
-    const [comments, setComments] = useState(props.comments.state)
-    const numPages = parseInt((comments.length / 10).toString()) + 1
+    const [page, setPage] = useState(0)
+    const [loading, result] = useAllCommentsData(true, page, sortStatus)
 
-    const [page, setPage] = React.useState(0)
 
     const handleChangePages = (pageNumber) => {
         setPage(pageNumber)
     }
 
 
-    const changeComment = (oldComment, newStatus) => {
-        let changedComments, index
-        changedComments = comments
-        index = comments.indexOf(oldComment)
-        changedComments[index].status = newStatus
-        setComments(() => {
-            return changedComments
-        })
-    }
-
     return (
-        <Grid container spacing={2}>
-            <Grid item xs={12}>
-                <Typography className={classes.title}>{title}</Typography>
-            </Grid>
-            {
-                comments.slice(page * 5, 5 * (page + 1))
-                    .map((comment) => (
-                        sortStatus ?
-                            comment.status === 'جدید' ?
-                                <Grid item xs={12}>
-                                    <CommentCard changeComment={changeComment} comment={comment}
-                                                 status={comment.status}/>
-                                </Grid>
-                                : null
-                            :
-                            <Grid item xs={12}>
-                                <CommentCard changeComment={changeComment} comment={comment} status={comment.status}/>
-                            </Grid>
+        <>
+            <Backdrop className={classes.backdrop} open={loading}>
+                <CircularProgress size={70} color="inherit"/>
+            </Backdrop>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <Typography className={classes.title}>{title}</Typography>
+                </Grid>
+                {
+                    result.comments.map((comment) => (
+                        <Grid key={Math.round(comment.create_date)} item xs={12}>
+                            <CommentCard comment={comment}/>
+                        </Grid>
                     ))
-            }
-            <Grid item xs={12}>
-                <TablePaginationActions numPages={numPages} page={page} onChange={handleChangePages}/>
+                }
+                <Grid item xs={12}>
+                    {!loading &&
+                    <TablePaginationActions numPages={result.pages} page={page} onChange={handleChangePages}/>}
+                </Grid>
             </Grid>
-        </Grid>
+        </>
     )
 }
 

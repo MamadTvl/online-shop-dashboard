@@ -1,23 +1,34 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import Card from "@material-ui/core/Card";
 import {Button, CardContent, CardHeader, Divider, IconButton, SvgIcon, Typography} from "@material-ui/core";
 import profile from '../../img/profile.png'
 import {useCommentCardStyles} from "./Styles/useCommentCardStyle";
+import {toFaDigit} from "../../utills/ToFaDigit";
+import moment from "jalali-moment";
+import useChangeCommentStatus from "./Actions/useChangeCommentStatus";
+import useDeleteComment from "./Actions/useDeleteComment";
+import {useHistory} from "react-router-dom";
 
 
 function CommentCard(props) {
-    const {comment, status, changeComment} = props
-    const [commentStatus, setCommentStatus] = useState(status)
+    const history = useHistory()
+    const {comment} = props
     const classes = useCommentCardStyles()
+    const [fetchDeleteComment, setFetchDeleteComment] = useState(false)
+    const [fetchChangeStatus, setFetchChangeStatus] = useState(false)
+    const [selectedStatus, setSelectedStatus] = useState(1)
 
+    const [loadingChangeStatus, changeStatusResult] = useChangeCommentStatus(fetchChangeStatus, comment.id, selectedStatus)
+    const [loadingDeleteComment, deleteCommentResult] = useDeleteComment(fetchDeleteComment, comment.id)
     const createStatus = (status) => {
-        const statusColor = status === 'تایید شده' ? '#22B132' : '#F16522'
+        const statusColor = status === '2' ? '#22B132' : '#F16522'
         return (
             <div className={classes.statusRec} style={{backgroundColor: statusColor}}>
-                <Typography className={classes.statusText} component={"span"}>{status}</Typography>
+                <Typography className={classes.statusText}
+                            component={"span"}>{`${status === '2' ? 'تایید شده' : 'رد شده'}`}</Typography>
                 {
-                    status === 'تایید شده'
+                    status === '2'
                         ?
                         <span>
                             <SvgIcon className={classes.statusIcon} xmlns="http://www.w3.org/2000/svg" width="13.364"
@@ -54,20 +65,22 @@ function CommentCard(props) {
             </div>
         )
     }
-    const deleteClick = () => {
-        setCommentStatus('')
-        changeComment(comment, commentStatus)
-    }
-    const acceptClick = () => {
-        setCommentStatus('تایید شده')
-        changeComment(comment, commentStatus)
-    }
-    const declineClick = () => {
-        setCommentStatus('رد شده')
-        changeComment(comment, commentStatus)
-    }
+
+    useEffect(() => {
+        if (!loadingDeleteComment) {
+            if (deleteCommentResult)
+                comment.status = ''
+            setFetchDeleteComment(false)
+        }
+    }, [loadingDeleteComment, deleteCommentResult, history])
+    useEffect(() => {
+        if (!loadingChangeStatus && changeStatusResult) {
+            comment.status = changeStatusResult.status
+            setFetchChangeStatus(false)
+        }
+    }, [loadingChangeStatus, changeStatusResult, history])
     const createDeleteAction = (
-        <IconButton onClick={deleteClick}>
+        <IconButton onClick={() => setFetchDeleteComment(true)}>
             <Typography
                 style={{
                     color: '#F16522',
@@ -110,7 +123,10 @@ function CommentCard(props) {
     const crateSelectStatusAction = (
         <div className={classes.actions}>
             <Button
-                onClick={acceptClick}
+                onClick={() => {
+                    setSelectedStatus(2)
+                    setFetchChangeStatus(true)
+                }}
                 size={'small'}
                 dir={'ltr'}
                 className={classes.accept}
@@ -135,7 +151,10 @@ function CommentCard(props) {
             <Button
                 dir={'ltr'}
                 size={'small'}
-                onClick={declineClick}
+                onClick={() => {
+                    setSelectedStatus(3)
+                    setFetchChangeStatus(true)
+                }}
                 className={classes.decline}
                 variant={"outlined"}
                 endIcon={
@@ -163,33 +182,37 @@ function CommentCard(props) {
     return (
         <div>
             {
-                commentStatus !== '' ?
+                comment.status !== '' ?
                     <Card>
                         <div className={classes.header}>
                             <CardHeader
                                 title={
                                     <div className={classes.detail}>
                                         <Typography
-                                            className={classes.title}>
-                                            {`محصول: ${comment.product} - تاریخ ارسال: ${comment.date}`}
+                                            className={classes.title}
+                                        >
+                                            {`محصول: ${comment.merchandise ? comment.merchandise.title : 'بدون محصول'} -
+                                             تاریخ ارسال: 
+                                             ${toFaDigit(moment.unix(comment.create_date).format("jYYYY/jM/jD"))}`
+                                            }
                                         </Typography>
-                                        {commentStatus !== 'جدید' ? createStatus(commentStatus) : null}
+                                        {comment.status !== '1' ? createStatus(comment.status) : null}
                                     </div>
                                 }
                             />
                             {
-                                commentStatus !== 'جدید'
+                                comment.status !== '1'
                                     ? createDeleteAction
-                                    : commentStatus !== ''
+                                    : comment.status !== ''
                                     ? crateSelectStatusAction : null
                             }
                         </div>
                         <Divider/>
                         <CardContent className={classes.content}>
-                            <img className={classes.profile} src={profile} alt={'profile'}/>
-                            <div style={{marginRight: 20}}>
-                                <Typography className={classes.username}>{comment.user}</Typography>
-                                <Typography className={classes.comment}>{comment.description}</Typography>
+                            <img className={classes.profile} src={profile} alt={comment.user.name_and_last_name}/>
+                            <div style={{marginRight: 20, display: 'flex', flexDirection: 'column'}}>
+                                <Typography className={classes.username}>{comment.user.name_and_last_name}</Typography>
+                                <Typography className={classes.comment}>{comment.text}</Typography>
                             </div>
                         </CardContent>
                     </Card>
@@ -203,8 +226,6 @@ function CommentCard(props) {
 
 CommentCard.propTypes = {
     comment: PropTypes.object.isRequired,
-    status: PropTypes.string.isRequired,
-    changeComment: PropTypes.func.isRequired,
 };
 
 export default CommentCard

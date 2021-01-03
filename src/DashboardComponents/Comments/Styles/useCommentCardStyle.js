@@ -40,8 +40,8 @@ export const useCommentCardStyles = makeStyles((theme) => ({
         fontFamily: 'Shabnam',
         color: '#888888',
         fontSize: 16,
-        // margin: theme.spacing(3, 3),
-        float: "right"
+        float: "right",
+        whiteSpace: 'pre-wrap'
     },
     actions: {
         alignItems: 'center',

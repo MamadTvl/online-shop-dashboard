@@ -2,12 +2,15 @@ import {useEffect, useState} from "react";
 import {useAxios} from "../../../utills/Hooks/useAxios";
 import {useHistory} from "react-router-dom"
 
-function useAllCommentsData(fetch, page) {
+function useAllCommentsData(fetch, page, showNew) {
     const history = useHistory()
-    const [result, setResult] = useState()
+    const [result, setResult] = useState({
+        pages: 1,
+        comments: []
+    })
     const [loading, setLoading] = useState(true)
     const [, getAllComments] = useAxios({
-        url: `/admin/comment_mng/get_all_comment?page=${page}`,
+        url: `/admin/comment_mng/get_all_comment?page=${page}${showNew ? '&new=true' : ''}`,
     }, {manual: true})
 
     useEffect(() => {
@@ -21,7 +24,7 @@ function useAllCommentsData(fetch, page) {
                 })
 
             } catch (err) {
-                history.go(0)
+                history.push('/')
             }
             setLoading(false)
         }
