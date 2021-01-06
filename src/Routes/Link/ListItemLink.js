@@ -248,7 +248,7 @@ function ListItemLink(props) {
 
     return (
         <li>
-            <ListItem onClick={handleClick} ref={ref} key={setKey(primary)} button component={renderLink}>
+            <ListItem onClick={handleClick} ref={ref} button component={renderLink}>
                 <ListItemIcon>{setIcon(primary)}</ListItemIcon>
                 <ListItemText classes={{primary: classes.textStyle}} primary={primary}/>
             </ListItem>

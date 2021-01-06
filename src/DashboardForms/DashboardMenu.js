@@ -77,18 +77,28 @@ function DashboardMenu() {
     }
 
     return (
-        <List>
-            {
-                listItems.map((text) => (
-                    text !== 'حساب کاربری' ?
-                    <ListItemLink forwardElement={forwardElement} primary={text}
-                                  to={`/admin/dashboard/${route(text)}`}/>
-                                  :null
+        <List
+            style={
+                {
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    height: '100%',
+                }}
+        >
+            <div>
+                {
+                    listItems.map((text, index) => (
+                        text !== 'حساب کاربری' ?
+                            <ListItemLink key={index} forwardElement={forwardElement} primary={text}
+                                          to={`/admin/dashboard/${route(text)}`}/>
+                            : null
 
-                ))
-            }
+                    ))
+                }
+            </div>
             <li key={8}>
-                <ListItem onClick={handleSignOut} className={classes.exit} button>
+                <ListItem key={18} onClick={handleSignOut} className={classes.exit} button>
                     <ListItemIcon>
                         <SvgIcon xmlns="http://www.w3.org/2000/svg" width="21.502" height="20.165"
                                  viewBox="0 0 21.502 20.165">

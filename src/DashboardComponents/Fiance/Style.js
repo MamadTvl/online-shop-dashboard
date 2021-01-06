@@ -35,6 +35,11 @@ export const useStyle = makeStyles(() => ({
         fontSize: 14,
         fontWeight: 'bold',
     },
+    exportLink: {
+        '&:hover': {
+            textDecoration: 'none',
+        }
+    },
     subTitle: {
         fontFamily: 'Shabnam',
         color: '#545454',

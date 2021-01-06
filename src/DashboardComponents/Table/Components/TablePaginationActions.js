@@ -43,10 +43,12 @@ function TablePaginationActions(props) {
         }
         return buttons
     }
-    const pagesButton = (value) => {
+    const pagesButton = (value, key) => {
         return (
             value === page + 1 ?
-                <Button style={{
+                <Button
+                    key={key}
+                    style={{
                     backgroundColor: pageButtonColor,
                     borderColor: 'transparent',
                     height: 40,
@@ -61,6 +63,7 @@ function TablePaginationActions(props) {
                 </Button>
                 :
                 <Button
+                    key={key}
                     style={{
                         backgroundColor: 'transparent',
                         borderColor: 'rgba(67, 67, 67, 0.68)',
@@ -86,6 +89,7 @@ function TablePaginationActions(props) {
         <ButtonGroup className={classes.buttonGroup}>
 
             <IconButton
+                key={99999}
                 onClick={() => {
                     onChange(page - 1)
                 }}
@@ -106,12 +110,13 @@ function TablePaginationActions(props) {
             </IconButton>
 
             {
-                buttonGroup().map((value) => (
-                    pagesButton(value)
+                buttonGroup().map((value, index) => (
+                    pagesButton(value, index)
                 ))
             }
 
             <IconButton
+                key={999999}
                 disabled={nextDisable}
                 onClick={() => {
                     onChange(page + 1)

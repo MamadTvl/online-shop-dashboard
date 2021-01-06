@@ -1,9 +1,7 @@
 import {useEffect, useState} from "react";
 import {useAxios} from "../../../utills/Hooks/useAxios";
-import {useHistory} from "react-router-dom"
 
 function useAllCommentsData(fetch, page, showNew) {
-    const history = useHistory()
     const [result, setResult] = useState({
         pages: -1,
         comments: []
