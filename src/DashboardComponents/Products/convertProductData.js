@@ -17,7 +17,7 @@ export const productData = (id, path, InfoValues, category, tags, colors,
         "campaign": campaign.id,
         "is_exist": isExist,
     }
-    if (path){
+    if (path) {
         data = {
             ...data,
             "id": id,
@@ -28,7 +28,7 @@ export const productData = (id, path, InfoValues, category, tags, colors,
     } else if (isExist) {
         return {
             ...data,
-            "stock_number": afterOrderCount,
+            "stock_number": parseInt(afterOrderCount),
         }
     } else {
         return data

@@ -118,6 +118,7 @@ function ProductStock(props) {
                         </Grid>
                         <Grid item xs={4} style={{textAlign: 'center'}}>
                             <TextField
+                                type={'number'}
                                 helperText={'برای ناموجود 0 لحاظ کنید'}
                                 margin={'normal'}
                                 value={product.count}
@@ -150,6 +151,7 @@ function ProductStock(props) {
             <Typography className={classes.label}>تعداد</Typography>
             <TextField
                 dir={'ltr'}
+                type={'number'}
                 id={'afterOrder-count'}
                 margin={'normal'}
                 fullWidth

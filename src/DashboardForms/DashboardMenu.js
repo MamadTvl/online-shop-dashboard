@@ -98,7 +98,7 @@ function DashboardMenu() {
                 }
             </div>
             <li key={8}>
-                <ListItem key={18} onClick={handleSignOut} className={classes.exit} button>
+                <ListItem key={18} onClick={handleSignOut} button>
                     <ListItemIcon>
                         <SvgIcon xmlns="http://www.w3.org/2000/svg" width="21.502" height="20.165"
                                  viewBox="0 0 21.502 20.165">
