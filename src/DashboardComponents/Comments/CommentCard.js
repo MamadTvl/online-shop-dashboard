@@ -75,7 +75,7 @@ function CommentCard(props) {
     }, [loadingDeleteComment, deleteCommentResult, history])
     useEffect(() => {
         if (!loadingChangeStatus && changeStatusResult) {
-            comment.status = changeStatusResult.status
+            refresh()
             setFetchChangeStatus(false)
         }
     }, [loadingChangeStatus, changeStatusResult, history])
