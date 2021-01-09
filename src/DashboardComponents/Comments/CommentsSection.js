@@ -74,7 +74,7 @@ function CommentsSection() {
                                         search: '?new=true',
                                     }}
                                 >
-                                    <Typography className={classes.visitAll}>مشاهده همه</Typography>
+                                    <Typography hidden={resultNewComments.comments.length === 0} className={classes.visitAll}>مشاهده همه</Typography>
                                 </ItemLink>
                             </Grid>
                             {
@@ -86,6 +86,22 @@ function CommentsSection() {
                                         />
                                     </Grid>
                                 ))
+                            }
+                            {
+                                resultNewComments.comments.length === 0 &&
+                                    <>
+                                        <Typography
+                                            style={{
+                                                fontSize: 16,
+                                                fontWeight: 500,
+                                                margin: 'auto',
+                                                marginBottom: 32,
+                                            }}
+                                            className={classes.title}
+                                        >
+                                            نظر جدیدی ثبت نشده
+                                        </Typography>
+                                    </>
                             }
                         </>
 
@@ -100,7 +116,7 @@ function CommentsSection() {
                                         pathname: '/admin/dashboard/comments/show',
                                     }}
                                 >
-                                    <Typography className={classes.visitAll}>مشاهده همه</Typography>
+                                    <Typography hidden={resultAllComments.comments.length === 0}  className={classes.visitAll}>مشاهده همه</Typography>
                                 </ItemLink>
                             </Grid>
                             {
@@ -112,6 +128,22 @@ function CommentsSection() {
                                         />
                                     </Grid>
                                 ))
+                            }
+                            {
+                                resultAllComments.comments.length === 0 &&
+                                <>
+                                    <Typography
+                                        style={{
+                                            fontSize: 16,
+                                            fontWeight: 500,
+                                            margin: 'auto',
+                                            marginBottom: 32,
+                                        }}
+                                        className={classes.title}
+                                    >
+                                        نظری ثبت نشده
+                                    </Typography>
+                                </>
                             }
                         </>
 
