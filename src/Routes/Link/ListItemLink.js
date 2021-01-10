@@ -7,7 +7,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import {SvgIcon} from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     textStyle: {
         color: '#434343',
         fontFamily: "Shabnam",
@@ -208,29 +208,6 @@ const setIcon = (text) => {
         default :
             break
     }
-}
-const setKey = (text) => {
-    switch (text) {
-        case 'سفارشات' :
-            return 1
-        case 'محصولات' :
-            return 2
-        case 'مدیریت وبسایت' :
-            return 3
-        case 'کمپین ها' :
-            return 4
-        case 'دسته بندی ها' :
-            return 5
-        case 'نظرات' :
-            return 6
-        case 'امور مالی' :
-            return 7
-        case 'حساب کاربری' :
-            return
-        default :
-            break
-    }
-
 }
 
 function ListItemLink(props) {

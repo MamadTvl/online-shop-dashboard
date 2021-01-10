@@ -28,7 +28,7 @@ export const productData = (id, path, InfoValues, category, tags, colors,
     } else if (isExist) {
         return {
             ...data,
-            "stock_number": parseInt(afterOrderCount),
+            "type_2_stock_number": parseInt(afterOrderCount),
         }
     } else {
         return data

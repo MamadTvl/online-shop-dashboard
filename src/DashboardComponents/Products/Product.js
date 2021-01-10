@@ -222,7 +222,7 @@ function Product(props) {
 
         for (let i = 0; i < colorTags.size * sizeTags.size && sizeTags.size > 0; i++) {
             try {
-                const res = await postStockData({
+                await postStockData({
                     data:
                         stockData(id, productType, i, stockValues, isExist)
                 })
