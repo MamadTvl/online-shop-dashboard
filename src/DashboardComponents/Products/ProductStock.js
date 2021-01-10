@@ -54,7 +54,7 @@ function ProductStock(props) {
 
 
     const handleChangeRadio = (event) => {
-        setProductType(event.target.value === 'در انبار' ? 1 : 2)
+        setProductType(event.target.value === 'در انبار' ? "1" : "2")
     };
     const handleChangeSwitch = (event) => {
         setIsExist(event.target.checked)
@@ -196,7 +196,7 @@ function ProductStock(props) {
                     <CardContent>
 
                         <StyledRadio
-                            checked={productType == 1}
+                            checked={productType === "1"}
                             onChange={handleChangeRadio}
                             value="در انبار"
                             name="در انبار"
@@ -204,7 +204,7 @@ function ProductStock(props) {
                         />
                         <span className={classes.label}>در انبار</span>
                         <StyledRadio
-                            checked={productType == 2}
+                            checked={productType === "2"}
                             onChange={handleChangeRadio}
                             value="ساخت پس از سفارش"
                             name="ساخت پس از سفارش"
@@ -214,7 +214,7 @@ function ProductStock(props) {
                         <Divider/>
                         <br/>
                         {
-                            productType == 1 ?
+                            productType === "1" ?
                                 stockValues.length > 0 ? inStock : null
                                 :
                                 afterOrder
@@ -239,7 +239,7 @@ ProductStock.propTypes = {
 
     afterOrderValue: PropTypes.string.isRequired,
     setAfterOrderValue: PropTypes.func.isRequired,
-    productType: PropTypes.number.isRequired,
+    productType: PropTypes.string.isRequired,
     setProductType: PropTypes.func.isRequired,
 };
 

@@ -14,7 +14,6 @@ import CommentsSection from "../DashboardComponents/Comments/CommentsSection";
 import Discount from "../DashboardComponents/Campaign/Discount";
 import CommentsList from "../DashboardComponents/Comments/CommentsList";
 import Account from "../DashboardComponents/Account/Account";
-import DashboardLayout from "../DashboardForms/DashboardLayout";
 
 
 function DashboardRoutes(props) {
@@ -28,7 +27,7 @@ function DashboardRoutes(props) {
 
         switch (path) {
             case '/admin/dashboard':
-                return <DashboardLayout/>
+                return <></>
             case '/admin/dashboard/orders' :
                 return <OrdersSection/>
 

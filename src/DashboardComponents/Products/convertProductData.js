@@ -23,7 +23,7 @@ export const productData = (id, path, InfoValues, category, tags, colors,
             "id": id,
         }
     }
-    if (product_type == 1) {
+    if (product_type === "1") {
         return data
     } else if (isExist) {
         return {
@@ -40,7 +40,7 @@ export const stockData = (id, product_type, index, stockValues, isExist) => {
         "merchandise": id,
         "size": stockValues[index].size,
         "color": stockValues[index].color,
-        "stock_number": isExist && product_type == 1 ? parseInt(stockValues[index].count) : 0,
+        "stock_number": isExist && product_type === "1" ? parseInt(stockValues[index].count) : 0,
     }
 }
 

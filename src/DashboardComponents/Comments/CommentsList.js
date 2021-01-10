@@ -4,6 +4,7 @@ import CommentCard from "./CommentCard";
 import {makeStyles} from "@material-ui/core/styles";
 import TablePaginationActions from "../Table/Components/TablePaginationActions";
 import useAllCommentsData from "./Actions/useAllCommentsData";
+import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -21,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 function CommentsList({location}) {
     const classes = useStyles();
+    const history = useHistory()
     const queryParams = new URLSearchParams(location.search)
     const sortStatus = queryParams.get('new') === 'true'
     const title = sortStatus ? 'نظرات جدید' : 'همه نظرات'
@@ -36,6 +38,9 @@ function CommentsList({location}) {
 
     useEffect(() => {
         if (!loading && result.pages !== -1){
+            if(result.comments.length === 0){
+                history.push('/admin/dashboard/comments')
+            }
             setFetch(false)
         }
     }, [loading, result])

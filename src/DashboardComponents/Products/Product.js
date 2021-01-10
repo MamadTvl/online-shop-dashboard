@@ -37,7 +37,7 @@ const initialData = {
     stockValues: [],
     afterOrderValue: 0,
     isExist: true,
-    productType: 1,
+    productType: "1",
 }
 
 
