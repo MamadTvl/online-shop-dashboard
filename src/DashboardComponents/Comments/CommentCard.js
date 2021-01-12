@@ -89,7 +89,7 @@ function CommentCard(props) {
                     margin: '8px 8px'
                 }}
                 component={'span'}
-            >حذف کردن
+            >حذف
             </Typography>
             <SvgIcon style={{width: 10.8, height: 12}} xmlns="http://www.w3.org/2000/svg" width="15.9" height="17.5"
                      viewBox="0 0 15.9 17.5">
