@@ -14,7 +14,10 @@ function useCategoriesData(fetch) {
             try {
                 setLoading(true)
                 const response = await getCategories()
-                setResult(response.data.data.categories)
+                setResult(
+                    response.data.data.categories
+                    .sort((a, b) => a.name.localeCompare(b.name))
+                )
                 setLoading(false)
             } catch (err) {
                 setLoading(false)
