@@ -52,7 +52,9 @@ export const useStyles = makeStyles((theme) => ({
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
     },
-    logo: {},
+    logo: {
+        width: 175,
+    },
     main: {
         // display: 'flex',
         flexGrow: 1,

@@ -7,7 +7,7 @@ import {Hidden} from "@material-ui/core";
 import Drawer from "@material-ui/core/Drawer";
 import {useTheme} from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
-import logo from "../img/zimmerman.svg";
+import logo from "../img/didshop-logo-black.svg";
 import Divider from "@material-ui/core/Divider";
 import DashboardMenu from "./DashboardMenu";
 import {useLocation} from 'react-router-dom'
@@ -27,7 +27,7 @@ function DashboardLayout(props) {
         <>
             <AppBar className={classes.appBarLogo}>
                 <Toolbar>
-                    <img className={classes.logo} src={logo} alt={'zimmerman'}/>
+                    <img className={classes.logo} src={logo} alt={'دید آرت شاپ'}/>
                 </Toolbar>
             </AppBar>
             <Divider/>
