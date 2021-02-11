@@ -34,10 +34,6 @@ function FianceSection() {
         method: "PATCH"
     }, {manual: true})
 
-    const [{data: excelLink, loading: exportLoading}, ] = useAxios({
-        url: '/admin/financial_mng/export_exel',
-    })
-
     useEffect(() => {
         if(!indexLoading){
             document.getElementById('gift-prefix').children[0]
@@ -90,55 +86,6 @@ function FianceSection() {
             <Grid xs={12}>
                 <div className={classes.header}>
                     <Typography className={classes.title}>امور مالی</Typography>
-                    <Link
-                        href={`${!exportLoading && excelLink !== undefined && excelLink.data.file_dir}`}
-                        className={classes.exportLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <IconButton>
-                            <SvgIcon xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17">
-                                <g id="common-file-text-download" transform="translate(-0.25 -0.25)">
-                                    <circle id="Ellipse_128" data-name="Ellipse 128" cx="4.267" cy="4.267" r="4.267"
-                                            transform="translate(8.217 8.217)" fill="none" stroke="#f16522"
-                                            strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                    <path id="Path_30125" data-name="Path 30125" d="M17.25,14.25v4.267"
-                                          transform="translate(-4.767 -3.9)" fill="none" stroke="#f16522"
-                                          strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                    <path id="Path_30126" data-name="Path 30126" d="M16.6,19.6,15,18"
-                                          transform="translate(-4.117 -4.983)" fill="none" stroke="#f16522"
-                                          strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                    <path id="Path_30127" data-name="Path 30127" d="M17.25,19.6l1.6-1.6"
-                                          transform="translate(-4.767 -4.983)" fill="none" stroke="#f16522"
-                                          strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                    <path id="Path_30128" data-name="Path 30128" d="M3.75,6.75h7.467"
-                                          transform="translate(-0.867 -1.733)" fill="none" stroke="#f16522"
-                                          strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                    <path id="Path_30129" data-name="Path 30129" d="M3.75,11.25H8.017"
-                                          transform="translate(-0.867 -3.033)" fill="none" stroke="#f16522"
-                                          strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                    <path id="Path_30130" data-name="Path 30130" d="M3.75,15.75H6.417"
-                                          transform="translate(-0.867 -4.333)" fill="none" stroke="#f16522"
-                                          strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                                    <path id="Path_30131" data-name="Path 30131"
-                                          d="M5.55,14.617H1.817A1.067,1.067,0,0,1,.75,13.55V1.817A1.067,1.067,0,0,1,1.817.75H9.375a1.067,1.067,0,0,1,.754.312L12.171,3.1a1.067,1.067,0,0,1,.312.754V5.55"
-                                          fill="none" stroke="#f16522" strokeLinecap="round" strokeLinejoin="round"
-                                          strokeWidth="1"/>
-                                </g>
-                            </SvgIcon>
-                            <Typography
-                                style={{
-                                    color: '#F16522',
-                                    fontSize: '14px',
-                                    fontFamily: 'Shabnam',
-                                    fontWeight: "bold",
-                                    margin: '8px 8px'
-                                }}
-                                component={'span'}
-                            >اکسپورت
-                            </Typography>
-                        </IconButton>
-                    </Link>
                 </div>
             </Grid>
 

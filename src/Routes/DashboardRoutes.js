@@ -22,16 +22,13 @@ function DashboardRoutes(props) {
     let orderCode
 
     const setSection = () => {
-        if (path.includes('DID'))
-            orderCode = path.replaceAll('/admin/dashboard/orders/', '')
-
         switch (path) {
             case '/admin/dashboard':
                 return <></>
             case '/admin/dashboard/orders' :
                 return <OrdersSection/>
 
-            case `/admin/dashboard/orders/${orderCode}`:
+            case `/admin/dashboard/order`:
                 return <OrdersDetail code={orderCode}/>
 
             case '/admin/dashboard/products' :
