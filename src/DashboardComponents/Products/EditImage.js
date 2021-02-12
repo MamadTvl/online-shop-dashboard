@@ -67,9 +67,7 @@ function EditImage(props) {
     }
 
     const editImageHandler = (index, isPreview) => async (event) => {
-        // todo: test when backend bugs fixed (when fixed update product) use that
         const imageFile = event.target.files[0]
-        console.log(imageFile)
         if (isPreview) {
             const formData = new FormData()
             formData.append("preview_image", imageFile)
@@ -96,7 +94,7 @@ function EditImage(props) {
                 await deleteImage({
                     data: {
                         "id": id,
-                        "other_image": other_images[index],
+                        "other_image_list": other_images[index],
                     }
                 })
                 const response = await pathImage({
@@ -112,35 +110,31 @@ function EditImage(props) {
     const deleteImageHandler = async (index, isPreview) => {
         if (isPreview) {
             try {
-                await deleteImage({
-                    data: {
-                        "id": id,
-                        "preview_image": preview_image,
-                    }
-                })
                 if (other_images.length > 0) {
                     const response = await pathPreviewImage({
                         url: `/admin/merchandise_mng/update_merchandise?id=${id}`,
                         data: {
                             "id": id,
-                            "preview_image": other_images[0]
+                            "preview_image": other_images[0],
+                            "other_image_list": other_images.slice(1, other_images.length),
                         }
                     })
-                    const response2 = await deleteImage({
+                    console.log(other_images)
+                    setPreview_image(response.data.data.preview_image)
+                    setOther_images(response.data.data.other_image_list)
+                } else {
+                    const response = await deleteImage({
                         data: {
                             "id": id,
-                            "other_image": other_images[0],
+                            "preview_image": preview_image,
                         }
                     })
                     setPreview_image(response.data.data.preview_image)
-                    setOther_images(response2.data.data.other_image_list)
-
                 }
+
             } catch (err) {
                 console.log(err)
             }
-
-
         } else {
             try {
                 const response = await deleteImage({

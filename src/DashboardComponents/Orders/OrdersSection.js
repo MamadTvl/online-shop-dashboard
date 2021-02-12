@@ -30,12 +30,12 @@ function OrderSection() {
 
     const createState = (state) => {
         switch (state) {
-            case 0 :
-                return <Chip style={{'background-color': '#F29500'}} className={classes.state} label={'ارسال نشده'}/>
             case 1 :
-                return <Chip style={{'background-color': '#F16522'}} className={classes.state} label={'جدید'}/>
+                return <Chip style={{'background-color': '#F29500'}} className={classes.state} label={'در حال بررسی'}/>
             case 2 :
-                return <Chip style={{'background-color': '#22B132'}} className={classes.state} label={'ارسال شده'}/>
+                return <Chip style={{'background-color': '#F16522'}} className={classes.state} label={'تحویل داده شده'}/>
+            case 3 :
+                return <Chip style={{'background-color': '#22B132'}} className={classes.state} label={'لغو شده'}/>
             default:
                 return null
         }
@@ -44,9 +44,6 @@ function OrderSection() {
 
     if (data !== undefined)
         numPages = data.data.max_pages + 1
-     if (loading){
-         return null
-     }
 
 
     const handleChangePages = (pageNumber) => {
@@ -132,7 +129,7 @@ function OrderSection() {
                         </TableHead>
                         <TableBody>
                             {
-                                data.data.paymnets.map((payment) => (
+                                data.data.payments.map((payment) => (
                                     <StyledTableRow key={payment.unique_code}>
                                         <StyledTableCell align="right" component="th" scope="row">
                                             {payment.unique_code}
