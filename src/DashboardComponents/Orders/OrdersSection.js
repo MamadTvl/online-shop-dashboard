@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -24,7 +24,7 @@ function OrderSection() {
     const [{data, loading}, fetch] = useAxios(
         `admin/payment_mng/get_payments?page=${page}`
     )
-    const [{data: excelLink, loading: exportLoading}, ] = useAxios({
+    const [{data: excelLink, loading: exportLoading}, exportExcel] = useAxios({
         url: '/admin/financial_mng/export_exel',
     })
 
@@ -49,6 +49,11 @@ function OrderSection() {
     const handleChangePages = (pageNumber) => {
         setPage(pageNumber)
     }
+
+    useEffect(() => {
+        fetch()
+        exportExcel()
+    }, [])
 
 
     return (
