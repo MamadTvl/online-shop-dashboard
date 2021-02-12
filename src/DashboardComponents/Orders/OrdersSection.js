@@ -151,7 +151,7 @@ function OrderSection() {
                                         </StyledTableCell>
                                         <StyledTableCell align="right">
                                             <ItemLink text={'مشاهده جزئیات'}
-                                                      to={`/admin/dashboard/order?q=${payment.unique_code}`}/>
+                                                      to={`/admin/dashboard/order?id=${payment.id}`}/>
                                         </StyledTableCell>
                                     </StyledTableRow>
                                 ))}

@@ -4,6 +4,7 @@ import {CardContent, CardHeader, Table, TableBody, TableHead, TableRow, Typograp
 import {withStyles} from "@material-ui/core/styles";
 import TableCell from "@material-ui/core/TableCell";
 import {makeStyles} from "@material-ui/styles";
+import {separateDigit} from "../../utills/ToFaDigit";
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -30,33 +31,36 @@ const useStyles = makeStyles((theme) => ({
     },
 }), {index: 1})
 
-const cost = {
-    total : '۲۱۲٫۰۰۰ تومان',
-    productCost : '۲۰۲٫۰۰۰ تومان',
-    delivery : '۱۰٫۰۰۰ تومان',
-    offers : '۱۰٫۰۰۰ تومان'
-}
-
-function CartCost() {
+function CartCost(props) {
     const classes = useStyles()
 
     return (
         <Card>
             <CardHeader
-                title={<Typography className={classes.title}>مبلغ سبد خرید</Typography>}
+                title={
+                    <Typography className={classes.title}>مبلغ سبد خرید</Typography>
+                }
             />
             <CardContent>
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <StyledTableCell align = "right" >کل</StyledTableCell>
-                            <StyledTableCell align = "right" >هزینه محصولات</StyledTableCell>
+                            <StyledTableCell align = "right" >
+                                کل
+                            </StyledTableCell>
+                            <StyledTableCell align = "right" >
+                                هزینه محصولات
+                            </StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         <TableRow>
-                            <StyledTableCell align = "right" >{cost.total}</StyledTableCell>
-                            <StyledTableCell align = "right" >{cost.productCost}</StyledTableCell>
+                            <StyledTableCell align = "right" >
+                                {`${separateDigit(props.data.amount)} تومان`}
+                            </StyledTableCell>
+                            <StyledTableCell align = "right" >
+                                {`${separateDigit(props.data.productsCost)} تومان`}
+                            </StyledTableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
@@ -64,14 +68,22 @@ function CartCost() {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <StyledTableCell align = "right" >هزینه ارسال</StyledTableCell>
-                            <StyledTableCell align = "right" >تخفیف ها</StyledTableCell>
+                            <StyledTableCell align = "right" >
+                                هزینه ارسال
+                            </StyledTableCell>
+                            <StyledTableCell align = "right" >
+                                
+                                تخفیف ها</StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         <TableRow>
-                            <StyledTableCell align = "right" >{cost.delivery}</StyledTableCell>
-                            <StyledTableCell align = "right" >{cost.offers}</StyledTableCell>
+                            <StyledTableCell align = "right" >
+                                {props.data.free_transmission ? 'رایگان' : 'به عهده مشتری'}
+                            </StyledTableCell>
+                            <StyledTableCell align = "right" >
+                                {`${separateDigit(props.data.discount)} تومان`}
+                            </StyledTableCell>
                         </TableRow>
                     </TableBody>
                 </Table>

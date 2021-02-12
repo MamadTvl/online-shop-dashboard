@@ -2,8 +2,6 @@ import React from "react";
 import Card from "@material-ui/core/Card";
 import {
     CardHeader,
-    IconButton,
-    SvgIcon,
     Table, TableBody,
     TableContainer,
     TableHead,
@@ -12,6 +10,7 @@ import {
 } from "@material-ui/core";
 import {makeStyles, withStyles} from "@material-ui/core/styles";
 import TableCell from "@material-ui/core/TableCell";
+import {toFaDigit} from "../../utills/ToFaDigit";
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -32,6 +31,7 @@ const StyledTableCell = withStyles((theme) => ({
 const useStyles = makeStyles((theme) => ({
     root: {
         minHeight: '230px',
+        marginBottom: 16,
     },
     details: {
         display: "flex",
@@ -70,11 +70,19 @@ const useStyles = makeStyles((theme) => ({
 
 const details = ['نام مشتری', 'ایمیل', 'شماره موبایل', 'استان', 'شهر']
 
-const customer = ['نیما مشهدی رضا', 'ArashDma@gmail.com', '۰۹۳۶۶۱۸۳۴۹۳', 'تهران', 'تهران', 'پونک جنوبی، ایران زمین جنوبی، کوچه سعادت، پلاک ۳۳ واحد ۰۲']
 
-function CustomersInfo() {
+
+function CustomersInfo(props) {
     const classes = useStyles()
-
+    const customer = [
+        props.user.costumer_name,
+        props.user.email,
+        toFaDigit(props.user.phone_number),
+        props.user.state.name,
+        props.user.city.name,
+        toFaDigit(props.user.address),
+        toFaDigit(props.user.post_code),
+    ]
     return (
 
         <Card className={classes.root}>
@@ -98,10 +106,8 @@ function CustomersInfo() {
                     <TableBody>
                         <TableRow>
                             {
-                                customer.map((detail, index) => (
-                                    index !== 5 ?
+                                customer.slice(0, 5).map((detail, index) => (
                                     <StyledTableCell align = "right" >{detail}</StyledTableCell>
-                                    : null
                                 ))
                             }
                         </TableRow>
@@ -109,9 +115,46 @@ function CustomersInfo() {
                 </Table>
             </TableContainer>
             <div className={classes.address}>
-                <Typography className={classes.textStyle}  style={{marginTop : 24, marginBottom : 8}}>آدرس</Typography>
-                <Typography className={classes.textStyle} style={{color : '#50525C', fontSize : 16, opacity  : '100%',marginBottom : 24  }}>
-                    {customer[5]}</Typography>
+                <Typography
+                    className={classes.textStyle}
+                    style={{
+                        marginTop : 24,
+                        marginBottom : 8,
+                    }}
+                >آدرس
+                </Typography>
+                <Typography
+                    className={classes.textStyle}
+                    style={{
+                        color : '#50525C',
+                        fontSize : 16,
+                        opacity  : '100%',
+                        marginBottom : 24
+                    }}
+                >
+                    {customer[5]}
+                </Typography>
+            </div>
+            <div className={classes.address}>
+                <Typography
+                    className={classes.textStyle}
+                    style={{
+                        marginTop : 24,
+                        marginBottom : 8,
+                    }}
+                >کد پستی
+                </Typography>
+                <Typography
+                    className={classes.textStyle}
+                    style={{
+                        color : '#50525C',
+                        fontSize : 16,
+                        opacity  : '100%',
+                        marginBottom : 24
+                    }}
+                >
+                    {customer[6]}
+                </Typography>
             </div>
         </Card>
     )

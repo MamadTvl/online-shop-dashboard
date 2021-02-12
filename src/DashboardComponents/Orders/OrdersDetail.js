@@ -6,79 +6,63 @@ import OrderState from "./OrderState";
 import ProductDetail from "./ProductDetail";
 import CartDetail from "./CartDetail";
 import CartCost from "./CartCost";
+import useOrderDetails from "./FetchData/useOrderDetails";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        display: "flex",
-        flexGrow: 1,
-        width: '100%',
-        // justifyContent : "space-around",
-    },
-    container: {
-        justifyContent: "space-around",
-    },
     title: {
         fontFamily: 'Shabnam',
         color: '#434343',
         fontSize: 20,
         fontWeight: "bold",
-        margin: theme.spacing(1, 5.25, 1, 1)
-    },
-    card: {
-        // display : 'flex',
-        padding: theme.spacing(10),
-        textAlign: 'center',
-    },
-    gridRight: {
-        flexBasis: '726px'
-        // Width : '726px',
-
-    },
-    gridLeft: {
-        flexBasis: '726px',
-        marginBottom: theme.spacing(28)
-        // Width : '386px',
-    },
-    state: {
-
-        [theme.breakpoints.up("xs")]: {
-            margin: theme.spacing(2, 1, 2)
-        }
-    },
-    cartDetail: {
-        [theme.breakpoints.up("xs")]: {
-            margin: theme.spacing(2, 1, 2)
-        }
-    },
-    cardCost: {
-        [theme.breakpoints.up("xs")]: {
-            margin: theme.spacing(2, 1, 2)
-        }
     },
 }), {index: 1});
 
 
-function OrdersDetail(props) {
+function OrdersDetail({location}) {
     const classes = useStyles();
-
+    const params = new URLSearchParams(location.search)
+    const [orderLoading, orderResult] = useOrderDetails(true, params.get('id'))
+    if (orderLoading)
+        return null
     return (
-        <div className={classes.root}>
-
-            <Grid container direction={"row"} className={classes.container} spacing={2}>
-                <Grid item md={12}>
-                    <Typography className={classes.title}>{`جزئیات سفارش ${props.code}`}</Typography>
-                </Grid>
-                <Grid container xs={12} md={8} className={classes.gridRight} spacing={2}>
-                    <Grid item xs={12} md={12}><CustomersInfo/></Grid>
-                    <Grid item xs={12} md={12}><ProductDetail/></Grid>
-                </Grid>
-                <Grid container xs={12} md={4} className={classes.gridLeft}>
-                    <Grid item xs={12} md={12} className={classes.state}><OrderState/></Grid>
-                    <Grid item xs={12} md={12} className={classes.cartDetail}><CartDetail/></Grid>
-                    <Grid item xs={12} md={12} className={classes.cardCost}><CartCost/></Grid>
-                </Grid>
+        <Grid style={{padding: 32}} container direction={"row"} spacing={2}>
+            <Grid item md={12}>
+                <Typography className={classes.title}>{`جزئیات سفارش ${orderResult.unique_code}`}</Typography>
             </Grid>
-        </div>
+            <Grid item sm={12} md={8}>
+                <CustomersInfo
+                    user={
+                        orderResult.basket
+                    }
+                />
+                <ProductDetail
+                    products={orderResult.basket.boxes_list}
+                />
+            </Grid>
+            <Grid item sm={12} md={4}>
+                <OrderState
+                    data={{
+                        status: orderResult.status,
+                        id: params.get('id'),
+                    }}
+                />
+                <CartDetail
+                    data={{
+                        payment_date: orderResult.payment_date,
+                        details: orderResult.basket.details,
+                        hasGift: orderResult.basket.gift,
+                    }}
+                />
+                <CartCost
+                    data={{
+                        amount: orderResult.amount,
+                        productsCost: orderResult.basket.total_basket_price,
+                        free_transmission: orderResult.basket.free_transmission,
+                        discount: (orderResult.amount - orderResult.basket.total_basket_price),
+                    }}
+                />
+            </Grid>
+        </Grid>
     )
 }
 

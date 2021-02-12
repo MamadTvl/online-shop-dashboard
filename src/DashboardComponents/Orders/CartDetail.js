@@ -2,6 +2,8 @@ import React from "react";
 import Card from "@material-ui/core/Card";
 import {CardContent, CardHeader, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
+import {toFaDigit} from "../../utills/ToFaDigit";
+import moment from "jalali-moment";
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -27,17 +29,13 @@ const useStyles = makeStyles((theme) => ({
     }
 }), {index: 1});
 
-const cardDetail = {
-    description : 'لطفا تمامی کقش‌ها در سایز ۴۴ باشند.',
-    date : '۹۸/۱۱/۱۲'
-}
 
 
-function CartDetail() {
+function CartDetail(props) {
     const classes = useStyles()
 
     return(
-        <Card>
+        <Card style={{marginBottom: 16}}>
             <CardHeader
             title={
                 <Typography className={classes.title}>جزئیات سبد خرید</Typography>
@@ -45,9 +43,15 @@ function CartDetail() {
             />
             <CardContent>
                 <Typography className={classes.subTitle}>توضیحات</Typography>
-                <Typography className={classes.body}>{cardDetail.description}</Typography>
+                <Typography className={classes.body}>{props.data.details}</Typography>
                 <Typography className={classes.subTitle}>تاریخ ثبت سبد خرید</Typography>
-                <Typography className={classes.body}>{cardDetail.date}</Typography>
+                <Typography className={classes.body}>
+                    {toFaDigit(moment.unix(props.data.payment_date).locale('fa').format("jYYYY/jM/jD"))}
+                </Typography>
+                <Typography className={classes.subTitle}>هدیه</Typography>
+                <Typography className={classes.body}>
+                    {props.data.hasGift ? 'دارد' : 'ندارد'}
+                </Typography>
             </CardContent>
         </Card>
     )
